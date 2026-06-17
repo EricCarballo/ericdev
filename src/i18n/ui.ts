@@ -1,0 +1,631 @@
+export interface MetricItem {
+  value: number;
+  prefix?: string;
+  suffix?: string;
+  label: string;
+}
+
+export interface LighthouseMetricItem {
+  label: string;
+  value: number;
+  icon: 'zap' | 'search' | 'check' | 'mobile';
+}
+
+export interface UITranslations {
+  meta: {
+    title: string;
+    description: string;
+    ogImage: string;
+  };
+  a11y: {
+    skipToContent: string;
+  };
+  hero: {
+    heading: string;
+    headingHighlight: string;
+    roles: string[];
+    viewProjects: string;
+    contact: string;
+    downloadCv: string;
+    available: string;
+  };
+  cv: {
+    url: string;
+    fileName: string;
+  };
+  profile: {
+    aboutTitle: string;
+    name: string;
+    role: string;
+    bio: string;
+    email: string;
+    emailCta: string;
+    phone: string;
+    phoneDisplay: string;
+    linkedin: {
+      url: string;
+      label: string;
+    };
+    available: string;
+  };
+  skills: {
+    title: string;
+    titleHighlight: string;
+    contactMe: string;
+    callMe: string;
+    linkedinCta: string;
+    workExperience: string;
+    educationTitle: string;
+    certificationsTitle: string;
+    methodologiesTitle: string;
+    hardSkillsLabel: string;
+    categoryLabels: {
+      frontend: string;
+      backend: string;
+      tools: string;
+    };
+    fileName: string;
+    codeComment: string;
+    categories: {
+      frontend: string[];
+      backend: string[];
+      tools: string[];
+    };
+  };
+  education: {
+    title: string;
+    items: Array<{
+      degree: string;
+      institution: string;
+      period: string;
+    }>;
+  };
+  projects: {
+    title: string;
+    titleHighlight: string;
+    subtitle: string;
+  };
+  about: {
+    title: string;
+    titleHighlight: string;
+  };
+  project: {
+    eyebrow: string;
+    appName: string;
+    title: string;
+    description: string;
+    url: string;
+    cta: string;
+    visitSite: string;
+    imageAlt: string;
+    badges: string[];
+  };
+  experience: {
+    title: string;
+    company: string;
+    role: string;
+    period: string;
+    bullets: string[];
+    showMore: string;
+    showLess: string;
+    visibleCount: number;
+  };
+  certifications: {
+    title: string;
+    nasa: {
+      role: string;
+      event: string;
+      description: string;
+    };
+    certs: string[];
+  };
+  methodologies: {
+    title: string;
+    items: string[];
+  };
+  metrics: {
+    title: string;
+    items: MetricItem[];
+  };
+  lighthouse: {
+    title: string;
+    titleHighlight: string;
+    subtitle: string;
+    reportFile: string;
+    replay: string;
+    techUsed: string;
+    metrics: LighthouseMetricItem[];
+    features: Array<{ title: string; description: string }>;
+    techStack: string[];
+  };
+  footer: {
+    tagline: string;
+    navigation: string;
+    technologies: string;
+    copyright: string;
+    links: Array<{ name: string; href: string }>;
+  };
+  nav: {
+    home: string;
+    about: string;
+    projects: string;
+    skills: string;
+    optimizations: string;
+    contact: string;
+    downloadCv: string;
+    navigation: string;
+    themeLight: string;
+    themeDark: string;
+    languageEs: string;
+    languageEn: string;
+  };
+}
+
+export const ui: Record<'es' | 'en', UITranslations> = {
+  es: {
+    meta: {
+      title: 'Eric Jasiel Carballo Leal — Ing. en Software',
+      description:
+        'Portafolio profesional de Eric Jasiel Carballo Leal. Desarrollador FullStack especializado en Next.js, NestJS.',
+      ogImage: '/imgs/ing-eric.webp',
+    },
+    a11y: {
+      skipToContent: 'Saltar al contenido',
+    },
+    hero: {
+      heading: 'Construyendo productos web',
+      headingHighlight: 'modernos y escalables',
+      roles: [
+        'Ing. Eric Carballo',
+        'FullStack Developer',
+      ],
+      viewProjects: 'Ver proyectos',
+      contact: 'Contactar',
+      downloadCv: 'Descargar CV',
+      available: 'Disponible para trabajar',
+    },
+    cv: {
+      url: '/cv/eric-cv.pdf',
+      fileName: 'Eric-Carballo-CV.pdf',
+    },
+    profile: {
+      aboutTitle: 'Acerca de mí',
+      name: 'Eric Jasiel Carballo Leal',
+      role: 'Ing. en Software · FullStack Developer',
+      bio: 'Soy una persona apasionada por la tecnología que busca cada día mejorar como Ing. en Software, que le gusta aprender nuevas tecnologías y actualizándose al cambio del mañana.',
+      email: 'ecarballo333@gmail.com',
+      emailCta: 'Enviar correo',
+      phone: '6421420455',
+      phoneDisplay: '642 142 0455',
+      linkedin: {
+        url: 'https://www.linkedin.com/in/eric-jasiel-carballo-leal-3aa030341/',
+        label: 'LinkedIn',
+      },
+      available: 'Disponible para trabajar',
+    },
+    skills: {
+      title: 'Hard',
+      titleHighlight: ' Skills',
+      contactMe: 'Contáctame',
+      callMe: 'Llámame',
+      linkedinCta: 'LinkedIn',
+      workExperience: 'Experiencia laboral',
+      educationTitle: 'Educación',
+      certificationsTitle: 'Certificaciones y Hackathons',
+      methodologiesTitle: 'Metodologías y habilidades blandas',
+      hardSkillsLabel: 'Hard Skills',
+      categoryLabels: {
+        frontend: 'Frontend',
+        backend: 'Backend',
+        tools: 'Herramientas',
+      },
+      fileName: 'skills.ts',
+      codeComment: '// Stack principal — Eric Carballo',
+      categories: {
+        frontend: ['React', 'Next.js', 'TypeScript', 'Tailwind CSS', 'JavaScript', 'CSS'],
+        backend: ['NestJS', 'Node.js', 'SQL', 'PostgreSQL', 'MongoDB'],
+        tools: ['Git', 'GitHub', 'VS Code', 'Postman', 'Docker Desktop', 'UiPath'],
+      },
+    },
+    education: {
+      title: 'Educación',
+      items: [
+        {
+          degree: 'Ingeniería en Software',
+          institution: 'Instituto Tecnológico de Sonora (ITSON)',
+          period: '2019 — 2023',
+        },
+      ],
+    },
+    projects: {
+      title: 'Proyectos',
+      titleHighlight: ' destacados',
+      subtitle: 'Productos reales con impacto en operaciones y negocio.',
+    },
+    about: {
+      title: 'Acerca de',
+      titleHighlight: 'mí',
+    },
+    project: {
+      eyebrow: 'Proyecto destacado',
+      appName: 'MenuSync',
+      title: 'SaaS Integral de Gestión de Restaurantes',
+      url: 'https://menusync-app.vercel.app/',
+      cta: 'Ver detalles',
+      visitSite: 'Visitar sitio',
+      imageAlt: 'Captura del panel MenuSync — sistema de gestión para Restaurante Rene\'s',
+      description:
+        'Aplicación en tiempo real con WebSockets (Socket.io): órdenes sincronizadas entre meseros, cocina y barra, cobros, inventario automático, proveedores, plantilla de empleados con roles y turnos, auditorías de stock y reportes exportables a Excel. Branding personalizable desde el panel.',
+      badges: [
+        'Next.js',
+        'NestJS',
+        'PostgreSQL',
+        'Socket.io',
+        'Prisma ORM',
+        'TypeScript',
+        'Tailwind CSS',
+      ],
+    },
+    experience: {
+      title: 'Experiencia',
+      company: 'Soa Software Factory',
+      role: 'Desarrollador FullStack',
+      period: '2023 — 2025',
+      showMore: 'Ver más',
+      showLess: 'Ver menos',
+      visibleCount: 4,
+      bullets: [
+        'Desarrollo e implementación de interfaces dinámicas y responsivas con Next.js, Tailwind CSS y TypeScript.',
+        'Creación de componentes reutilizables y modulares siguiendo buenas prácticas de arquitectura frontend.',
+        'Integración de APIs para mostrar, filtrar y manipular datos en tiempo real en la aplicación.',
+        'Mantenimiento y mejora continua de funcionalidades existentes en producción.',
+        'Desarrollo backend modular con NestJS y TypeScript: endpoints, lógica de negocio y servicios.',
+        'Revisión de código y colaboración en equipo bajo metodología ágil (Daily scrum).',
+        'Flujos de trabajo con Git y GitHub en un entorno de desarrollo colaborativo.',
+        'Optimización de la experiencia de usuario en interfaces críticas del producto.',
+        'Documentación técnica de módulos, APIs y procesos de desarrollo.',
+      ],
+    },
+    certifications: {
+      title: 'Certificaciones y Hackathons',
+      nasa: {
+        role: 'Desarrollador Frontend',
+        event: 'NASA Space Apps Challenge 2024',
+        description:
+          'Reto: uso de datos de observación terrestre para decisiones agrícolas. Desarrollamos una aplicación con datos satelitales e IA que genera recomendaciones a agricultores mediante gráficos interactivos, con Next.js en frontend y NestJS en backend.',
+      },
+      certs: [
+        'Next.js (Producción)',
+        'Nest (Backend Escalable)',
+        'UiPath (Sistemas RPA)',
+      ],
+    },
+    methodologies: {
+      title: 'Metodologías y Habilidades Blandas',
+      items: [
+        'Arquitectura Limpia',
+        'Desarrollo Modular',
+        'Gitflow',
+        'Comunicación Efectiva',
+        'Trabajo en Equipo',
+        'Adaptabilidad',
+        'Pensamiento Crítico Autodidacta',
+      ],
+    },
+    metrics: {
+      title: 'Impacto técnico',
+      items: [
+        {
+          value: 2,
+          prefix: '+',
+          suffix: '',
+          label: 'Años de experiencia comercial',
+        },
+        {
+          value: 3,
+          label: 'Certificaciones técnicas',
+        },
+        {
+          value: 1,
+          label: 'Proyecto SaaS en producción',
+        },
+      ],
+    },
+    lighthouse: {
+      title: 'Optimización y',
+      titleHighlight: 'rendimiento web',
+      subtitle:
+        'Auditoría Lighthouse de este portafolio: sitio estático con Astro, hidratación selectiva y assets optimizados.',
+      reportFile: 'lighthouse-report.json',
+      replay: 'Reproducir',
+      techUsed: 'Stack del portafolio',
+      metrics: [
+        { label: 'Performance', value: 67, icon: 'zap' },
+        { label: 'Accessibility', value: 96, icon: 'check' },
+        { label: 'Best Practices', value: 100, icon: 'mobile' },
+        { label: 'SEO', value: 100, icon: 'search' },
+      ],
+      features: [
+        {
+          title: 'Islas de interactividad',
+          description:
+            'Solo los componentes que lo necesitan se hidratan en el cliente, reduciendo JavaScript inicial.',
+        },
+        {
+          title: 'Assets optimizados',
+          description:
+            'Imágenes WebP, fuentes con display swap y CSS crítico para una carga percibida más rápida.',
+        },
+      ],
+      techStack: [
+        'Astro 4',
+        'React',
+        'TypeScript',
+        'Tailwind CSS 3',
+        'GSAP',
+        'Vercel',
+      ],
+    },
+    footer: {
+      tagline: 'Ing. en Software · FullStack Developer especializado en productos web en tiempo real.',
+      navigation: 'Navegación',
+      technologies: 'Tecnologías',
+      copyright: 'Diseñado y desarrollado por Eric Jasiel Carballo Leal.',
+      links: [
+        { name: 'Inicio', href: '#top' },
+        { name: 'Skills', href: '#skills' },
+        { name: 'Proyectos', href: '#projects' },
+        { name: 'Optimización', href: '#optimizations' },
+        { name: 'Acerca de', href: '#about' },
+        { name: 'Contacto', href: 'mailto:ecarballo333@gmail.com' },
+      ],
+    },
+    nav: {
+      home: 'Inicio',
+      about: 'Acerca de',
+      projects: 'Proyectos',
+      skills: 'Skills',
+      optimizations: 'Optimización',
+      contact: 'Contacto',
+      downloadCv: 'CV',
+      navigation: 'Navegación',
+      themeLight: 'Activar modo claro',
+      themeDark: 'Activar modo oscuro',
+      languageEs: 'ES',
+      languageEn: 'EN',
+    },
+  },
+  en: {
+    meta: {
+      title: 'Eric Jasiel Carballo Leal — Software Engineer',
+      description:
+        'Professional portfolio of Eric Jasiel Carballo Leal. FullStack Developer specialized in Next.js, NestJS, and real-time architectures.',
+      ogImage: '/imgs/ing-eric.webp',
+    },
+    a11y: {
+      skipToContent: 'Skip to content',
+    },
+    hero: {
+      heading: 'Building modern',
+      headingHighlight: 'and scalable web products',
+      roles: [
+        'Eric Carballo — Software Engineer',
+        'FullStack Developer',
+      ],
+      viewProjects: 'View projects',
+      contact: 'Get in touch',
+      downloadCv: 'Download CV',
+      available: 'Open to work',
+    },
+    cv: {
+      url: '/cv/eric-cv.pdf',
+      fileName: 'Eric-Carballo-CV.pdf',
+    },
+    profile: {
+      aboutTitle: 'About me',
+      name: 'Eric Jasiel Carballo Leal',
+      role: 'Software Engineer · FullStack Developer',
+      bio: 'I am passionate about technology, constantly striving to improve as a Software Engineer, eager to learn new technologies, and adapting to tomorrow\'s changes.',
+      email: 'ecarballo333@gmail.com',
+      emailCta: 'Send email',
+      phone: '6421420455',
+      phoneDisplay: '642 142 0455',
+      linkedin: {
+        url: 'https://www.linkedin.com/in/eric-jasiel-carballo-leal-3aa030341/',
+        label: 'LinkedIn',
+      },
+      available: 'Open to work',
+    },
+    skills: {
+      title: 'Hard',
+      titleHighlight: ' Skills',
+      contactMe: 'Contact me',
+      callMe: 'Call me',
+      linkedinCta: 'LinkedIn',
+      workExperience: 'Work experience',
+      educationTitle: 'Education',
+      certificationsTitle: 'Certifications & Hackathons',
+      methodologiesTitle: 'Methodologies & soft skills',
+      hardSkillsLabel: 'Hard Skills',
+      categoryLabels: {
+        frontend: 'Frontend',
+        backend: 'Backend',
+        tools: 'Tools',
+      },
+      fileName: 'skills.ts',
+      codeComment: '// Core stack — Eric Carballo',
+      categories: {
+        frontend: ['React', 'Next.js', 'TypeScript', 'Tailwind CSS', 'JavaScript', 'CSS'],
+        backend: ['NestJS', 'Node.js', 'SQL', 'PostgreSQL', 'MongoDB'],
+        tools: ['Git', 'GitHub', 'VS Code', 'Postman', 'Docker Desktop', 'UiPath'],
+      },
+    },
+    education: {
+      title: 'Education',
+      items: [
+        {
+          degree: 'Software Engineering',
+          institution: 'Instituto Tecnológico de Sonora (ITSON)',
+          period: '2019 — 2023',
+        },
+      ],
+    },
+    projects: {
+      title: 'Featured',
+      titleHighlight: ' projects',
+      subtitle: 'Real products with operational and business impact.',
+    },
+    about: {
+      title: 'About',
+      titleHighlight: ' me',
+    },
+    project: {
+      eyebrow: 'Featured project',
+      appName: 'MenuSync',
+      title: 'Comprehensive Restaurant Management SaaS',
+      url: 'https://menusync-app.vercel.app/',
+      cta: 'View details',
+      visitSite: 'Visit site',
+      imageAlt: 'MenuSync dashboard screenshot — restaurant management system for Restaurante Rene\'s',
+      description:
+        'Real-time app with WebSockets (Socket.io): synchronized orders between waiters, kitchen and bar, checkout, automatic inventory, suppliers, staff with roles and shifts, stock audits, and Excel exportable reports. Fully customizable branding from the admin panel.',
+      badges: [
+        'Next.js',
+        'NestJS',
+        'PostgreSQL',
+        'Socket.io',
+        'Prisma ORM',
+        'TypeScript',
+        'Tailwind CSS',
+      ],
+    },
+    experience: {
+      title: 'Experience',
+      company: 'Soa Software Factory',
+      role: 'FullStack Developer',
+      period: '2023 — 2025',
+      showMore: 'Show more',
+      showLess: 'Show less',
+      visibleCount: 4,
+      bullets: [
+        'Built dynamic, responsive interfaces with Next.js, Tailwind CSS, and TypeScript.',
+        'Created reusable, modular components following solid frontend architecture practices.',
+        'Integrated APIs to display, filter, and manipulate real-time data in the application.',
+        'Maintained and improved existing production features on an ongoing basis.',
+        'Developed modular backend with NestJS and TypeScript: endpoints, business logic, and services.',
+        'Conducted code reviews and collaborated in an agile team (Daily scrum).',
+        'Worked with Git and GitHub in a collaborative development environment.',
+        'Optimized user experience on critical product interfaces.',
+        'Wrote technical documentation for modules, APIs, and development processes.',
+      ],
+    },
+    certifications: {
+      title: 'Certifications & Hackathons',
+      nasa: {
+        role: 'Frontend Developer',
+        event: 'NASA Space Apps Challenge 2024',
+        description:
+          'Challenge: Earth observation data for agricultural decisions. We built an app using satellite data and AI to deliver farmer recommendations through interactive charts, with Next.js on the frontend and NestJS on the backend.',
+      },
+      certs: [
+        'Next.js (Production)',
+        'Nest (Scalable Backend)',
+        'UiPath (RPA Systems)',
+      ],
+    },
+    methodologies: {
+      title: 'Methodologies & Soft Skills',
+      items: [
+        'Clean Architecture',
+        'Modular Development',
+        'Gitflow',
+        'Effective Communication',
+        'Teamwork',
+        'Adaptability',
+        'Self-taught Critical Thinking',
+      ],
+    },
+    metrics: {
+      title: 'Technical impact',
+      items: [
+        {
+          value: 2,
+          prefix: '+',
+          suffix: '',
+          label: 'Years of commercial experience',
+        },
+        {
+          value: 3,
+          label: 'Technical certifications',
+        },
+        {
+          value: 1,
+          label: 'SaaS product in production',
+        },
+      ],
+    },
+    lighthouse: {
+      title: 'Optimization &',
+      titleHighlight: 'web performance',
+      subtitle:
+        'Lighthouse audit of this portfolio: static site with Astro, selective hydration, and optimized assets.',
+      reportFile: 'lighthouse-report.json',
+      replay: 'Replay',
+      techUsed: 'Portfolio stack',
+      metrics: [
+        { label: 'Performance', value: 67, icon: 'zap' },
+        { label: 'Accessibility', value: 96, icon: 'check' },
+        { label: 'Best Practices', value: 100, icon: 'mobile' },
+        { label: 'SEO', value: 100, icon: 'search' },
+      ],
+      features: [
+        {
+          title: 'Interactive islands',
+          description:
+            'Only components that need it hydrate on the client, reducing initial JavaScript.',
+        },
+        {
+          title: 'Optimized assets',
+          description:
+            'WebP images, font-display swap, and lean CSS for faster perceived loading.',
+        },
+      ],
+      techStack: [
+        'Astro 4',
+        'React',
+        'TypeScript',
+        'Tailwind CSS 3',
+        'GSAP',
+        'Vercel',
+      ],
+    },
+    footer: {
+      tagline: 'Software Engineer · FullStack Developer focused on real-time web products.',
+      navigation: 'Navigation',
+      technologies: 'Technologies',
+      copyright: 'Designed & developed by Eric Jasiel Carballo Leal.',
+      links: [
+        { name: 'Home', href: '#top' },
+        { name: 'Skills', href: '#skills' },
+        { name: 'Projects', href: '#projects' },
+        { name: 'Optimization', href: '#optimizations' },
+        { name: 'About', href: '#about' },
+        { name: 'Contact', href: 'mailto:ecarballo333@gmail.com' },
+      ],
+    },
+    nav: {
+      home: 'Home',
+      about: 'About',
+      projects: 'Projects',
+      skills: 'Skills',
+      optimizations: 'Optimization',
+      contact: 'Contact',
+      downloadCv: 'CV',
+      navigation: 'Navigation',
+      themeLight: 'Switch to light mode',
+      themeDark: 'Switch to dark mode',
+      languageEs: 'ES',
+      languageEn: 'EN',
+    },
+  },
+};
