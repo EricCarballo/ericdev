@@ -14,7 +14,7 @@ function TechChip({ name, slug }: { name: string; slug: string | null }) {
   const showFallback = slug === null || failed;
 
   return (
-    <div className="flex shrink-0 items-center gap-2.5 rounded-xl border border-border/50 bg-background/60 px-4 py-2.5 shadow-sm backdrop-blur-sm dark:bg-white/[0.04]">
+    <div className="flex shrink-0 items-center gap-2.5 rounded-xl border border-border/50 bg-card px-4 py-2.5 shadow-sm">
       {showFallback ? (
         <span
           className="flex h-[22px] w-[22px] shrink-0 items-center justify-center rounded-md bg-foreground/10 text-[10px] font-bold uppercase text-foreground"
@@ -28,7 +28,7 @@ function TechChip({ name, slug }: { name: string; slug: string | null }) {
           alt=""
           width={22}
           height={22}
-          className="h-[22px] w-[22px] shrink-0 object-contain dark:invert-[0.85]"
+          className="h-[22px] w-[22px] shrink-0 object-contain"
           loading="lazy"
           decoding="async"
           onError={() => setFailed(true)}

@@ -33,18 +33,6 @@ export default function Navbar({ lang, copy, email, cvUrl, cvFileName }: NavbarP
   }, []);
 
   useEffect(() => {
-    const handler = (e: MouseEvent) => {
-      const el = (e.target as HTMLElement).closest<HTMLElement>('.glass, .glow-card');
-      if (!el) return;
-      const r = el.getBoundingClientRect();
-      el.style.setProperty('--glow-x', `${((e.clientX - r.left) / r.width) * 100}%`);
-      el.style.setProperty('--glow-y', `${((e.clientY - r.top) / r.height) * 100}%`);
-    };
-    document.addEventListener('mousemove', handler, { passive: true });
-    return () => document.removeEventListener('mousemove', handler);
-  }, []);
-
-  useEffect(() => {
     if (menuOpen) {
       document.body.classList.add('overflow-hidden');
     } else {
@@ -71,21 +59,11 @@ export default function Navbar({ lang, copy, email, cvUrl, cvFileName }: NavbarP
       setMenuOpen(false);
       return;
     }
-    const lenis = window.lenis;
-    if (lenis) {
-      if (sectionId === 'top') {
-        lenis.scrollTo(0, { duration: 1.2 });
-      } else {
-        const el = document.getElementById(sectionId);
-        if (el) lenis.scrollTo(el, { duration: 1.2 });
-      }
+    if (sectionId === 'top') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     } else {
-      const el = sectionId === 'top' ? document.body : document.getElementById(sectionId);
-      if (sectionId === 'top') {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      } else if (el) {
-        el.scrollIntoView({ behavior: 'smooth' });
-      }
+      const el = document.getElementById(sectionId);
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
     setMenuOpen(false);
   };
@@ -109,7 +87,7 @@ export default function Navbar({ lang, copy, email, cvUrl, cvFileName }: NavbarP
           hidden ? '-translate-y-full' : 'translate-y-0'
         } ${
           isScrolled || menuOpen
-            ? 'border-b border-border/50 bg-background/80 shadow-sm backdrop-blur-md'
+            ? 'border-b border-border/50 bg-background/95 shadow-sm'
             : 'bg-transparent'
         }`}
       >
@@ -211,7 +189,7 @@ export default function Navbar({ lang, copy, email, cvUrl, cvFileName }: NavbarP
       </header>
 
       <div
-        className={`fixed inset-0 z-40 bg-background/80 backdrop-blur-sm transition-opacity duration-300 md:hidden ${
+        className={`fixed inset-0 z-40 bg-background/90 transition-opacity duration-300 md:hidden ${
           menuOpen ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0'
         }`}
         onClick={() => setMenuOpen(false)}

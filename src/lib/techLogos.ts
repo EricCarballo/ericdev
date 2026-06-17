@@ -23,6 +23,10 @@ const TECH_SLUGS: Record<string, string | null> = {
   UiPath: 'uipath',
 };
 
+const TECH_LOGO_EXT: Partial<Record<string, 'svg' | 'png' | 'webp'>> = {
+  uipath: 'png',
+};
+
 export function resolveTechLogo(name: string): TechLogo {
   const slug = TECH_SLUGS[name];
   if (slug === undefined) {
@@ -32,5 +36,6 @@ export function resolveTechLogo(name: string): TechLogo {
 }
 
 export function techLogoUrl(slug: string): string {
-  return `/icons/tech/${slug}.svg`;
+  const ext = TECH_LOGO_EXT[slug] ?? 'svg';
+  return `/icons/tech/${slug}.${ext}`;
 }

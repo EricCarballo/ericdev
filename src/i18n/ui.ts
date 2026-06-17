@@ -40,24 +40,23 @@ export interface UITranslations {
     bio: string;
     email: string;
     emailCta: string;
-    phone: string;
-    phoneDisplay: string;
     linkedin: {
       url: string;
       label: string;
     };
+    location: string;
     available: string;
   };
   skills: {
     title: string;
     titleHighlight: string;
     contactMe: string;
-    callMe: string;
     linkedinCta: string;
     workExperience: string;
     educationTitle: string;
     certificationsTitle: string;
     methodologiesTitle: string;
+    sectionLabel: string;
     hardSkillsLabel: string;
     categoryLabels: {
       frontend: string;
@@ -84,27 +83,44 @@ export interface UITranslations {
     title: string;
     titleHighlight: string;
     subtitle: string;
+    sectionLabel: string;
+    visitSite: string;
+    demoCredentialsTitle: string;
+    demoCredentialsOpen: string;
+    demoCredentialsClose: string;
+    demoCredentialsColumns: {
+      email: string;
+      password: string;
+      role: string;
+      panel: string;
+    };
+    items: Array<{
+      eyebrow: string;
+      appName: string;
+      title: string;
+      description: string;
+      url: string;
+      image: string;
+      imageAlt: string;
+      badges: string[];
+      demoCredentials?: Array<{
+        email: string;
+        password: string;
+        role: string;
+        panel: string;
+      }>;
+    }>;
   };
   about: {
     title: string;
     titleHighlight: string;
-  };
-  project: {
-    eyebrow: string;
-    appName: string;
-    title: string;
-    description: string;
-    url: string;
-    cta: string;
-    visitSite: string;
-    imageAlt: string;
-    badges: string[];
   };
   experience: {
     title: string;
     company: string;
     role: string;
     period: string;
+    stack: string[];
     bullets: string[];
     showMore: string;
     showLess: string;
@@ -112,10 +128,15 @@ export interface UITranslations {
   };
   certifications: {
     title: string;
+    hackathonBadge: string;
+    certificationBadge: string;
+    certificationsSection: string;
+    viewCertificate: string;
     nasa: {
       role: string;
       event: string;
       description: string;
+      certificateUrl: string;
     };
     certs: string[];
   };
@@ -173,8 +194,8 @@ export const ui: Record<'es' | 'en', UITranslations> = {
       skipToContent: 'Saltar al contenido',
     },
     hero: {
-      heading: 'Construyendo productos web',
-      headingHighlight: 'modernos y escalables',
+      heading: 'Desarrollo software que',
+      headingHighlight: 'impulsa el crecimiento de tu negocio',
       roles: [
         'Ing. Eric Carballo',
         'FullStack Developer',
@@ -195,25 +216,24 @@ export const ui: Record<'es' | 'en', UITranslations> = {
       bio: 'Soy una persona apasionada por la tecnología que busca cada día mejorar como Ing. en Software, que le gusta aprender nuevas tecnologías y actualizándose al cambio del mañana.',
       email: 'ecarballo333@gmail.com',
       emailCta: 'Enviar correo',
-      phone: '6421420455',
-      phoneDisplay: '642 142 0455',
       linkedin: {
         url: 'https://www.linkedin.com/in/eric-jasiel-carballo-leal-3aa030341/',
         label: 'LinkedIn',
       },
+      location: 'Sonora, MX',
       available: 'Disponible para trabajar',
     },
     skills: {
-      title: 'Hard',
-      titleHighlight: ' Skills',
+      title: 'Experiencia',
+      titleHighlight: ' y formación',
       contactMe: 'Contáctame',
-      callMe: 'Llámame',
       linkedinCta: 'LinkedIn',
       workExperience: 'Experiencia laboral',
       educationTitle: 'Educación',
       certificationsTitle: 'Certificaciones y Hackathons',
       methodologiesTitle: 'Metodologías y habilidades blandas',
-      hardSkillsLabel: 'Hard Skills',
+      sectionLabel: 'Trayectoria profesional',
+      hardSkillsLabel: 'Stack técnico',
       categoryLabels: {
         frontend: 'Frontend',
         backend: 'Backend',
@@ -241,36 +261,81 @@ export const ui: Record<'es' | 'en', UITranslations> = {
       title: 'Proyectos',
       titleHighlight: ' destacados',
       subtitle: 'Productos reales con impacto en operaciones y negocio.',
+      sectionLabel: 'Portafolio',
+      visitSite: 'Visitar sitio',
+      demoCredentialsTitle: 'Credenciales de demo',
+      demoCredentialsOpen: 'Ver credenciales de demo',
+      demoCredentialsClose: 'Cerrar credenciales',
+      demoCredentialsColumns: {
+        email: 'Email',
+        password: 'Contraseña',
+        role: 'Rol',
+        panel: 'Panel principal',
+      },
+      items: [
+        {
+          eyebrow: 'SaaS en producción',
+          appName: 'MenuSync',
+          title: 'SaaS Integral de Gestión de Restaurantes',
+          url: 'https://menusync-app.vercel.app/',
+          image: '/imgs/dashboard.webp',
+          imageAlt:
+            'Captura del panel MenuSync — sistema de gestión para Restaurante Rene\'s',
+          description:
+            'Aplicación en tiempo real con WebSockets (Socket.io): órdenes sincronizadas entre meseros, cocina y barra, cobros, inventario automático, proveedores, plantilla de empleados con roles y turnos, auditorías de stock y reportes exportables a Excel. Branding personalizable desde el panel.',
+          badges: [
+            'Next.js',
+            'NestJS',
+            'PostgreSQL',
+            'Socket.io',
+            'Prisma ORM',
+            'TypeScript',
+            'Tailwind CSS',
+          ],
+          demoCredentials: [
+            { email: 'admin@demo.com', password: 'admin123', role: 'SUPER_ADMIN', panel: '/admin' },
+            {
+              email: 'supervisor@restaurante.com',
+              password: 'supervisor123',
+              role: 'SUPERVISOR',
+              panel: '/admin',
+            },
+            { email: 'mesero1@restaurante.com', password: 'mesero123', role: 'MESERO', panel: '/mesero' },
+            { email: 'mesero2@restaurante.com', password: 'mesero123', role: 'MESERO', panel: '/mesero' },
+            { email: 'cocina@restaurante.com', password: 'cocina123', role: 'COCINA', panel: '/cocina' },
+            { email: 'barra@restaurante.com', password: 'barra123', role: 'BARRA', panel: '/barra' },
+            {
+              email: 'cajero@restaurante.com',
+              password: 'cajero123',
+              role: 'CAJERO',
+              panel: '/admin (caja)',
+            },
+          ],
+        },
+        {
+          eyebrow: 'Landing comercial',
+          appName: 'La Chula Tacos',
+          title: 'Sitio web para restaurante street-gourmet',
+          url: 'https://lachulatacos.vercel.app/',
+          image: '/imgs/lachulatacos.webp',
+          imageAlt:
+            'Captura del sitio La Chula Tacos — landing con menú, galería y ubicación en Navojoa',
+          description:
+            'Sitio estático para La Chula Tacos en Navojoa, Sonora: home con menú destacado, carta completa con pestañas, página nosotros, galería con lightbox y testimonios. Contenido centralizado, despliegue optimizado en Vercel.',
+          badges: ['Astro', 'Tailwind CSS', 'React', 'TypeScript'],
+        },
+      ],
     },
     about: {
       title: 'Acerca de',
       titleHighlight: 'mí',
-    },
-    project: {
-      eyebrow: 'Proyecto destacado',
-      appName: 'MenuSync',
-      title: 'SaaS Integral de Gestión de Restaurantes',
-      url: 'https://menusync-app.vercel.app/',
-      cta: 'Ver detalles',
-      visitSite: 'Visitar sitio',
-      imageAlt: 'Captura del panel MenuSync — sistema de gestión para Restaurante Rene\'s',
-      description:
-        'Aplicación en tiempo real con WebSockets (Socket.io): órdenes sincronizadas entre meseros, cocina y barra, cobros, inventario automático, proveedores, plantilla de empleados con roles y turnos, auditorías de stock y reportes exportables a Excel. Branding personalizable desde el panel.',
-      badges: [
-        'Next.js',
-        'NestJS',
-        'PostgreSQL',
-        'Socket.io',
-        'Prisma ORM',
-        'TypeScript',
-        'Tailwind CSS',
-      ],
     },
     experience: {
       title: 'Experiencia',
       company: 'Soa Software Factory',
       role: 'Desarrollador FullStack',
       period: '2023 — 2025',
+      stack: ['Next.js', 'NestJS', 'TypeScript', 'Tailwind CSS', 'PostgreSQL', 'Git'],
       showMore: 'Ver más',
       showLess: 'Ver menos',
       visibleCount: 4,
@@ -288,11 +353,17 @@ export const ui: Record<'es' | 'en', UITranslations> = {
     },
     certifications: {
       title: 'Certificaciones y Hackathons',
+      hackathonBadge: 'Hackathon',
+      certificationBadge: 'Certificación',
+      certificationsSection: 'Certificaciones',
+      viewCertificate: 'Ver certificado',
       nasa: {
         role: 'Desarrollador Frontend',
         event: 'NASA Space Apps Challenge 2024',
         description:
           'Reto: uso de datos de observación terrestre para decisiones agrícolas. Desarrollamos una aplicación con datos satelitales e IA que genera recomendaciones a agricultores mediante gráficos interactivos, con Next.js en frontend y NestJS en backend.',
+        certificateUrl:
+          'https://drive.google.com/file/d/1KT_1XKP9reOMVl1lvCCuAxksnitsXRXW/view',
       },
       certs: [
         'Next.js (Producción)',
@@ -384,7 +455,7 @@ export const ui: Record<'es' | 'en', UITranslations> = {
       home: 'Inicio',
       about: 'Acerca de',
       projects: 'Proyectos',
-      skills: 'Skills',
+      skills: 'Experiencia',
       optimizations: 'Optimización',
       contact: 'Contacto',
       downloadCv: 'CV',
@@ -406,8 +477,8 @@ export const ui: Record<'es' | 'en', UITranslations> = {
       skipToContent: 'Skip to content',
     },
     hero: {
-      heading: 'Building modern',
-      headingHighlight: 'and scalable web products',
+      heading: 'Software development that',
+      headingHighlight: 'drives your business growth',
       roles: [
         'Eric Carballo — Software Engineer',
         'FullStack Developer',
@@ -428,25 +499,24 @@ export const ui: Record<'es' | 'en', UITranslations> = {
       bio: 'I am passionate about technology, constantly striving to improve as a Software Engineer, eager to learn new technologies, and adapting to tomorrow\'s changes.',
       email: 'ecarballo333@gmail.com',
       emailCta: 'Send email',
-      phone: '6421420455',
-      phoneDisplay: '642 142 0455',
       linkedin: {
         url: 'https://www.linkedin.com/in/eric-jasiel-carballo-leal-3aa030341/',
         label: 'LinkedIn',
       },
+      location: 'Sonora, MX',
       available: 'Open to work',
     },
     skills: {
-      title: 'Hard',
-      titleHighlight: ' Skills',
+      title: 'Experience',
+      titleHighlight: ' & education',
       contactMe: 'Contact me',
-      callMe: 'Call me',
       linkedinCta: 'LinkedIn',
       workExperience: 'Work experience',
       educationTitle: 'Education',
       certificationsTitle: 'Certifications & Hackathons',
       methodologiesTitle: 'Methodologies & soft skills',
-      hardSkillsLabel: 'Hard Skills',
+      sectionLabel: 'Professional background',
+      hardSkillsLabel: 'Tech stack',
       categoryLabels: {
         frontend: 'Frontend',
         backend: 'Backend',
@@ -474,36 +544,81 @@ export const ui: Record<'es' | 'en', UITranslations> = {
       title: 'Featured',
       titleHighlight: ' projects',
       subtitle: 'Real products with operational and business impact.',
+      sectionLabel: 'Portfolio',
+      visitSite: 'Visit site',
+      demoCredentialsTitle: 'Demo credentials',
+      demoCredentialsOpen: 'View demo credentials',
+      demoCredentialsClose: 'Close credentials',
+      demoCredentialsColumns: {
+        email: 'Email',
+        password: 'Password',
+        role: 'Role',
+        panel: 'Main panel',
+      },
+      items: [
+        {
+          eyebrow: 'Production SaaS',
+          appName: 'MenuSync',
+          title: 'Comprehensive Restaurant Management SaaS',
+          url: 'https://menusync-app.vercel.app/',
+          image: '/imgs/dashboard.webp',
+          imageAlt:
+            'MenuSync dashboard screenshot — restaurant management system for Restaurante Rene\'s',
+          description:
+            'Real-time app with WebSockets (Socket.io): synchronized orders between waiters, kitchen and bar, checkout, automatic inventory, suppliers, staff with roles and shifts, stock audits, and Excel exportable reports. Fully customizable branding from the admin panel.',
+          badges: [
+            'Next.js',
+            'NestJS',
+            'PostgreSQL',
+            'Socket.io',
+            'Prisma ORM',
+            'TypeScript',
+            'Tailwind CSS',
+          ],
+          demoCredentials: [
+            { email: 'admin@demo.com', password: 'admin123', role: 'SUPER_ADMIN', panel: '/admin' },
+            {
+              email: 'supervisor@restaurante.com',
+              password: 'supervisor123',
+              role: 'SUPERVISOR',
+              panel: '/admin',
+            },
+            { email: 'mesero1@restaurante.com', password: 'mesero123', role: 'MESERO', panel: '/mesero' },
+            { email: 'mesero2@restaurante.com', password: 'mesero123', role: 'MESERO', panel: '/mesero' },
+            { email: 'cocina@restaurante.com', password: 'cocina123', role: 'COCINA', panel: '/cocina' },
+            { email: 'barra@restaurante.com', password: 'barra123', role: 'BARRA', panel: '/barra' },
+            {
+              email: 'cajero@restaurante.com',
+              password: 'cajero123',
+              role: 'CAJERO',
+              panel: '/admin (checkout)',
+            },
+          ],
+        },
+        {
+          eyebrow: 'Commercial landing',
+          appName: 'La Chula Tacos',
+          title: 'Street-gourmet restaurant website',
+          url: 'https://lachulatacosmx.netlify.app/',
+          image: '/imgs/lachulatacos.jpg',
+          imageAlt:
+            'La Chula Tacos website screenshot — landing with menu, gallery, and location in Navojoa',
+          description:
+            'Static site for La Chula Tacos in Navojoa, Sonora: home with featured menu, full menu with tabs, about page, gallery with lightbox, and testimonials. Centralized content model, optimized Netlify deployment.',
+          badges: ['Astro', 'Tailwind CSS', 'React', 'TypeScript'],
+        },
+      ],
     },
     about: {
       title: 'About',
       titleHighlight: ' me',
-    },
-    project: {
-      eyebrow: 'Featured project',
-      appName: 'MenuSync',
-      title: 'Comprehensive Restaurant Management SaaS',
-      url: 'https://menusync-app.vercel.app/',
-      cta: 'View details',
-      visitSite: 'Visit site',
-      imageAlt: 'MenuSync dashboard screenshot — restaurant management system for Restaurante Rene\'s',
-      description:
-        'Real-time app with WebSockets (Socket.io): synchronized orders between waiters, kitchen and bar, checkout, automatic inventory, suppliers, staff with roles and shifts, stock audits, and Excel exportable reports. Fully customizable branding from the admin panel.',
-      badges: [
-        'Next.js',
-        'NestJS',
-        'PostgreSQL',
-        'Socket.io',
-        'Prisma ORM',
-        'TypeScript',
-        'Tailwind CSS',
-      ],
     },
     experience: {
       title: 'Experience',
       company: 'Soa Software Factory',
       role: 'FullStack Developer',
       period: '2023 — 2025',
+      stack: ['Next.js', 'NestJS', 'TypeScript', 'Tailwind CSS', 'PostgreSQL', 'Git'],
       showMore: 'Show more',
       showLess: 'Show less',
       visibleCount: 4,
@@ -521,11 +636,17 @@ export const ui: Record<'es' | 'en', UITranslations> = {
     },
     certifications: {
       title: 'Certifications & Hackathons',
+      hackathonBadge: 'Hackathon',
+      certificationBadge: 'Certification',
+      certificationsSection: 'Certifications',
+      viewCertificate: 'View certificate',
       nasa: {
         role: 'Frontend Developer',
         event: 'NASA Space Apps Challenge 2024',
         description:
           'Challenge: Earth observation data for agricultural decisions. We built an app using satellite data and AI to deliver farmer recommendations through interactive charts, with Next.js on the frontend and NestJS on the backend.',
+        certificateUrl:
+          'https://drive.google.com/file/d/1KT_1XKP9reOMVl1lvCCuAxksnitsXRXW/view',
       },
       certs: [
         'Next.js (Production)',
@@ -617,7 +738,7 @@ export const ui: Record<'es' | 'en', UITranslations> = {
       home: 'Home',
       about: 'About',
       projects: 'Projects',
-      skills: 'Skills',
+      skills: 'Experiencia',
       optimizations: 'Optimization',
       contact: 'Contact',
       downloadCv: 'CV',

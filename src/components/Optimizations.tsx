@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
 import { CheckCircle2, RotateCcw, Search, Smartphone, Zap } from 'lucide-react';
-import { useReveal } from '@/hooks/useReveal';
 import type { LighthouseMetricItem, UITranslations } from '@/i18n/ui';
 
 export type OptimizationsCopy = UITranslations['lighthouse'];
@@ -34,7 +33,6 @@ function lighthouseColor(val: number): string {
 
 export default function Optimizations({ copy }: OptimizationsProps) {
   const ref = useRef<HTMLElement>(null);
-  useReveal(ref);
 
   const [spinning, setSpinning] = useState(false);
   const circleRefs = useRef<(SVGCircleElement | null)[]>([]);
@@ -133,8 +131,8 @@ export default function Optimizations({ copy }: OptimizationsProps) {
 
   return (
     <section ref={ref} id="optimizations" className="section-pad relative overflow-hidden">
-      <div className="pointer-events-none absolute left-1/2 top-1/2 flex h-[600px] w-full max-w-5xl -translate-x-1/2 -translate-y-1/2 justify-center opacity-30">
-        <div className="absolute h-[300px] w-[600px] bg-gradient-to-r from-green-500/20 via-emerald-500/20 to-teal-500/20 blur-3xl" />
+      <div className="pointer-events-none absolute left-1/2 top-1/2 flex h-[600px] w-full max-w-5xl -translate-x-1/2 -translate-y-1/2 justify-center opacity-20">
+        <div className="absolute h-[300px] w-[600px] bg-gradient-to-r from-green-500/15 via-emerald-500/15 to-teal-500/15" />
       </div>
 
       <div className="relative z-10 mx-auto w-full max-w-6xl px-6">

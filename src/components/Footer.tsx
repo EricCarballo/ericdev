@@ -1,15 +1,12 @@
 import { useEffect, useState } from 'react';
-import { ArrowUpRight, Mail, Phone, Terminal } from 'lucide-react';
+import { ArrowUpRight, Mail, Terminal } from 'lucide-react';
 import LinkedInIcon from '@/components/icons/LinkedInIcon';
 import type { UITranslations } from '@/i18n/ui';
 
 export interface FooterCopy {
   footer: UITranslations['footer'];
   lighthouse: Pick<UITranslations['lighthouse'], 'techStack'>;
-  profile: Pick<
-    UITranslations['profile'],
-    'email' | 'phone' | 'phoneDisplay' | 'linkedin'
-  >;
+  profile: Pick<UITranslations['profile'], 'email' | 'linkedin'>;
 }
 
 interface FooterProps {
@@ -29,27 +26,16 @@ export default function Footer({ copy }: FooterProps) {
       return;
     }
     const sectionId = href.replace('#', '');
-    const lenis = window.lenis;
-    if (lenis) {
-      if (sectionId === 'top') {
-        lenis.scrollTo(0, { duration: 1.2 });
-      } else {
-        const el = document.getElementById(sectionId);
-        if (el) lenis.scrollTo(el, { duration: 1.2 });
-      }
-    } else if (sectionId === 'top') {
+    if (sectionId === 'top') {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } else {
       const el = document.getElementById(sectionId);
-      if (el) el.scrollIntoView({ behavior: 'smooth' });
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   };
 
   return (
-    <footer className="relative overflow-hidden border-t border-border/10 bg-background/95 pt-12 backdrop-blur-xl md:pt-20">
-      <div className="pointer-events-none absolute left-1/2 top-0 flex h-[300px] w-full max-w-3xl -translate-x-1/2 justify-center opacity-20">
-        <div className="absolute -top-[150px] h-[300px] w-[600px] rounded-[100%] bg-gradient-to-b from-primary/20 to-transparent blur-3xl" />
-      </div>
+    <footer className="relative overflow-hidden border-t border-border/10 bg-background/95 pt-12 md:pt-20">
 
       <div className="relative z-10 mx-auto w-full max-w-6xl px-6 pb-10">
         <div className="mb-16 grid grid-cols-1 gap-8 md:grid-cols-2 md:gap-12 lg:grid-cols-4">
@@ -68,13 +54,6 @@ export default function Footer({ copy }: FooterProps) {
                 aria-label="Email"
               >
                 <Mail className="h-4 w-4" />
-              </a>
-              <a
-                href={`tel:+52${profile.phone}`}
-                className="glass inline-flex h-10 w-10 items-center justify-center rounded-full text-muted-foreground transition-all duration-300 hover:border-primary/30 hover:text-primary"
-                aria-label={profile.phoneDisplay}
-              >
-                <Phone className="h-4 w-4" />
               </a>
               <a
                 href={profile.linkedin.url}

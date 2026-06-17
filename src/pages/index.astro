@@ -15,7 +15,7 @@ const t = useTranslations(lang);
 <BaseLayout lang={lang}>
   <main id="main-content">
     <Hero
-      client:load
+      client:visible
       copy={{
         ...t.hero,
         skills: {
@@ -32,8 +32,6 @@ const t = useTranslations(lang);
         skills: t.skills,
         profile: {
           email: t.profile.email,
-          phone: t.profile.phone,
-          phoneDisplay: t.profile.phoneDisplay,
           linkedin: t.profile.linkedin,
         },
         experience: t.experience,
@@ -44,10 +42,10 @@ const t = useTranslations(lang);
       }}
     />
     <Projects
-      client:visible
-      copy={{ projects: t.projects, project: t.project }}
+      client:load
+      copy={{ projects: t.projects }}
     />
-    <Optimizations client:visible copy={t.lighthouse} />
+    <Optimizations client:idle copy={t.lighthouse} />
     <About
       client:visible
       copy={{ about: t.about, profile: t.profile }}
@@ -60,8 +58,6 @@ const t = useTranslations(lang);
       lighthouse: t.lighthouse,
       profile: {
         email: t.profile.email,
-        phone: t.profile.phone,
-        phoneDisplay: t.profile.phoneDisplay,
         linkedin: t.profile.linkedin,
       },
     }}

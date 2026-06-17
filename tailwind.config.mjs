@@ -22,9 +22,9 @@ export default {
         },
       },
       fontFamily: {
-        sans: ['"Inter"', 'system-ui', 'sans-serif'],
-        heading: ['"Inter"', 'system-ui', 'sans-serif'],
-        mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace'],
+        sans: ['system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'sans-serif'],
+        heading: ['system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'sans-serif'],
+        mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Consolas', 'monospace'],
       },
       borderRadius: {
         lg: '0.75rem',

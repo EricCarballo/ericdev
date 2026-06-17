@@ -3,7 +3,6 @@ import '@/styles/global.css';
 import type { Lang } from '@/i18n/utils';
 import { useTranslations } from '@/i18n/utils';
 import Navbar from '@/components/Navbar';
-import RevealObserver from '@/components/RevealObserver';
 
 interface Props {
   lang: Lang;
@@ -40,12 +39,6 @@ const ogLocale = lang === 'es' ? 'es_MX' : 'en_US';
     <meta name="twitter:title" content={t.meta.title} />
     <meta name="twitter:description" content={t.meta.description} />
     <meta name="twitter:image" content={ogImageUrl} />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
-      rel="stylesheet"
-    />
     <title>{t.meta.title}</title>
     <script is:inline>
       (function () {
@@ -58,7 +51,20 @@ const ogLocale = lang === 'es' ? 'es_MX' : 'en_US';
       })();
     </script>
   </head>
-  <body class="min-h-screen overflow-x-hidden bg-background font-sans antialiased selection:bg-primary/30">
+  <body class="min-h-screen overflow-x-hidden font-sans antialiased selection:bg-primary/30">
+    <div class="site-bg pointer-events-none fixed inset-0 z-0" aria-hidden="true">
+      <div class="site-bg-dots absolute inset-0"></div>
+      <div class="site-bg-ambient absolute inset-0"></div>
+      <div class="hero-grid absolute inset-0"></div>
+      <div class="site-bg-stars absolute inset-0"></div>
+      <div class="absolute inset-0 overflow-hidden">
+        <div class="site-bg-glow-1 absolute -top-[25%] left-1/2 h-[700px] w-[900px] -translate-x-1/2 rounded-full"></div>
+        <div class="site-bg-glow-2 absolute -right-[12%] top-[5%] h-[450px] w-[550px] rounded-full"></div>
+        <div class="site-bg-glow-3 absolute bottom-[10%] left-1/2 h-[400px] w-[600px] -translate-x-1/2 rounded-full"></div>
+      </div>
+    </div>
+
+    <div class="relative z-10">
     <div
       id="reading-progress"
       class="fixed left-0 top-0 z-[100] h-[2px] bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500"
@@ -74,7 +80,7 @@ const ogLocale = lang === 'es' ? 'es_MX' : 'en_US';
     </a>
 
     <Navbar
-      client:load
+      client:idle
       lang={lang}
       copy={t.nav}
       email={t.profile.email}
@@ -83,108 +89,73 @@ const ogLocale = lang === 'es' ? 'es_MX' : 'en_US';
     />
 
     <slot />
-
-    <RevealObserver client:load />
+    </div>
 
     <script>
+      function initRevealObserver() {
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const elements = document.querySelectorAll('.reveal');
+
+        if (prefersReducedMotion) {
+          elements.forEach((el) => el.classList.add('active'));
+          return;
+        }
+
+        const observer = new IntersectionObserver(
+          (entries, obs) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('active');
+                obs.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.12, rootMargin: '0px 0px -4% 0px' }
+        );
+
+        elements.forEach((el) => observer.observe(el));
+      }
+
       function initProgressBar() {
+        const el = document.getElementById('reading-progress');
+        if (!el) return;
+        let ticking = false;
         const update = () => {
-          const el = document.getElementById('reading-progress');
-          if (!el) return;
           const scrollable = document.documentElement.scrollHeight - window.innerHeight;
           const pct = scrollable > 0 ? Math.min(window.scrollY / scrollable, 1) : 0;
           el.style.width = `${pct * 100}%`;
+          ticking = false;
         };
-        window.addEventListener('scroll', update, { passive: true });
+        window.addEventListener(
+          'scroll',
+          () => {
+            if (!ticking) {
+              ticking = true;
+              requestAnimationFrame(update);
+            }
+          },
+          { passive: true }
+        );
         update();
       }
-      initProgressBar();
-    </script>
 
-    <script>
-      import Lenis from 'lenis';
-      import gsap from 'gsap';
-      import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
-      gsap.registerPlugin(ScrollTrigger);
-
-      let lenis: Lenis | null = null;
-      let tickerCallback: ((time: number) => void) | null = null;
-
-      function destroyLenis() {
-        if (tickerCallback) {
-          gsap.ticker.remove(tickerCallback);
-          tickerCallback = null;
-        }
-        if (lenis) {
-          lenis.destroy();
-          lenis = null;
-        }
-        window.lenis = undefined;
-      }
-
-      function initLenis() {
-        destroyLenis();
-
-        const instance = new Lenis({
-          duration: 1.2,
-          easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-          smoothWheel: true,
-          wheelMultiplier: 1,
-          touchMultiplier: 2,
-        });
-
-        lenis = instance;
-        window.lenis = instance as import('@/env').LenisInstance;
-        window.ScrollTrigger = ScrollTrigger;
-
-        tickerCallback = (time: number) => lenis!.raf(time * 1000);
-        gsap.ticker.add(tickerCallback);
-        gsap.ticker.lagSmoothing(0);
-        lenis.on('scroll', ScrollTrigger.update);
-      }
-
-      initLenis();
-    </script>
-
-    <script>
-      document.addEventListener('click', (e) => {
-        const anchor = e.target instanceof Element ? e.target.closest('a[href^="#"]') : null;
-        if (!anchor) return;
-        const hash = anchor.getAttribute('href');
-        if (!hash || hash === '#') return;
-        const target = document.querySelector(hash);
-        if (!target) return;
-        e.preventDefault();
-        const lenis = window.lenis;
-        if (lenis) {
-          const isTouch = window.matchMedia('(hover: none)').matches;
-          window.__navScrolling = true;
-          window.__navTarget = target as HTMLElement;
-          if (isTouch) {
-            lenis.scrollTo(target as HTMLElement, { immediate: true });
-            window.__navScrolling = false;
-            window.__navTarget = null;
-            document.querySelectorAll('.reveal:not(.active)').forEach((el) => {
-              const rect = el.getBoundingClientRect();
-              if (rect.top < window.innerHeight && rect.bottom > 0) {
-                el.classList.add('active');
-              }
-            });
-          } else {
-            lenis.scrollTo(target as HTMLElement, {
-              duration: 1.2,
-              onComplete: () => {
-                window.__navScrolling = false;
-                window.__navTarget = null;
-              },
-            });
-          }
-        } else {
+      function initAnchorScroll() {
+        document.addEventListener('click', (e) => {
+          const anchor = e.target instanceof Element ? e.target.closest('a[href^="#"]') : null;
+          if (!anchor) return;
+          const hash = anchor.getAttribute('href');
+          if (!hash || hash === '#') return;
+          const target = document.querySelector(hash);
+          if (!target) return;
+          e.preventDefault();
           target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-        history.replaceState(null, '', window.location.pathname);
-      });
+          history.replaceState(null, '', window.location.pathname);
+        });
+      }
+
+      initRevealObserver();
+      initProgressBar();
+      initAnchorScroll();
     </script>
   </body>
 </html>
