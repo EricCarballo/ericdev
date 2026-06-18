@@ -444,7 +444,7 @@ export const ui: Record<'es' | 'en', UITranslations> = {
       copyright: 'Diseñado y desarrollado por Eric Jasiel Carballo Leal.',
       links: [
         { name: 'Inicio', href: '#top' },
-        { name: 'Skills', href: '#skills' },
+        { name: 'Experiencia', href: '#skills' },
         { name: 'Proyectos', href: '#projects' },
         { name: 'Optimización', href: '#optimizations' },
         { name: 'Acerca de', href: '#about' },
@@ -727,7 +727,7 @@ export const ui: Record<'es' | 'en', UITranslations> = {
       copyright: 'Designed & developed by Eric Jasiel Carballo Leal.',
       links: [
         { name: 'Home', href: '#top' },
-        { name: 'Skills', href: '#skills' },
+        { name: 'Experiencia', href: '#skills' },
         { name: 'Projects', href: '#projects' },
         { name: 'Optimization', href: '#optimizations' },
         { name: 'About', href: '#about' },

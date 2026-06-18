@@ -210,7 +210,7 @@ export default function Skills({ copy }: SkillsProps) {
       <div className="mx-auto w-full max-w-6xl px-6">
         <div className="reveal mb-8 flex flex-col gap-6 lg:mb-10 lg:flex-row lg:items-end lg:justify-between">
           <div>
-            <p className="section-label">{skills.hardSkillsLabel}</p>
+            <p className="section-label">{skills.sectionLabel}</p>
             <h2 className="section-title">
               {skills.title}
               <span className="text-primary">{skills.titleHighlight}</span>
