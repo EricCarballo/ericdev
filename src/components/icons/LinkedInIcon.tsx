@@ -1,6 +1,4 @@
-interface LinkedInIconProps {
-  className?: string;
-}
+import type { LinkedInIconProps } from '@/interfaces/icons/linkedin-icon';
 
 export default function LinkedInIcon({ className }: LinkedInIconProps) {
   return (

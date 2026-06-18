@@ -1,7 +1,6 @@
-export interface TechLogo {
-  name: string;
-  slug: string | null;
-}
+import type { TechLogo } from '@/interfaces/lib/tech-logos';
+
+export type { TechLogo } from '@/interfaces/lib/tech-logos';
 
 const TECH_SLUGS: Record<string, string | null> = {
   React: 'react',

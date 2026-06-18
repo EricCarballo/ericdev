@@ -1,15 +1,6 @@
 import { Mail, MapPin } from 'lucide-react';
 import LinkedInIcon from '@/components/icons/LinkedInIcon';
-import type { UITranslations } from '@/i18n/ui';
-
-export interface AboutCopy {
-  about: UITranslations['about'];
-  profile: UITranslations['profile'];
-}
-
-interface AboutProps {
-  copy: AboutCopy;
-}
+import type { AboutProps } from '@/interfaces/components/about';
 
 export default function About({ copy }: AboutProps) {
   const { about, profile } = copy;

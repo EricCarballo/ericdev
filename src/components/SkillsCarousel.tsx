@@ -1,13 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { resolveTechLogo, techLogoUrl } from '@/lib/techLogos';
-import type { UITranslations } from '@/i18n/ui';
-
-type SkillCategories = UITranslations['skills']['categories'];
-
-interface SkillsCarouselProps {
-  categories: SkillCategories;
-  hardSkillsLabel: string;
-}
+import type { SkillsCarouselProps } from '@/interfaces/components/skills-carousel';
 
 function TechChip({ name, slug }: { name: string; slug: string | null }) {
   const [failed, setFailed] = useState(false);

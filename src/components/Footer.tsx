@@ -1,17 +1,7 @@
 import { useEffect, useState } from 'react';
 import { ArrowUpRight, Mail, Terminal } from 'lucide-react';
 import LinkedInIcon from '@/components/icons/LinkedInIcon';
-import type { UITranslations } from '@/i18n/ui';
-
-export interface FooterCopy {
-  footer: UITranslations['footer'];
-  lighthouse: Pick<UITranslations['lighthouse'], 'techStack'>;
-  profile: Pick<UITranslations['profile'], 'email' | 'linkedin'>;
-}
-
-interface FooterProps {
-  copy: FooterCopy;
-}
+import type { FooterProps } from '@/interfaces/components/footer';
 
 export default function Footer({ copy }: FooterProps) {
   const [year, setYear] = useState<number | null>(null);

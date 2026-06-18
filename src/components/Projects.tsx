@@ -1,29 +1,19 @@
-import { useState } from 'react';
+import { lazy, Suspense, useState } from 'react';
 import { ArrowRight, KeyRound } from 'lucide-react';
-import DemoCredentialsModal from '@/components/DemoCredentialsModal';
-import type { UITranslations } from '@/i18n/ui';
+import { getHostname } from '@/lib/url';
+import type { ProjectsProps } from '@/interfaces/components/projects';
 
-export interface ProjectsCopy {
-  projects: UITranslations['projects'];
-}
-
-interface ProjectsProps {
-  copy: ProjectsCopy;
-}
-
-function getHostname(url: string, fallback: string): string {
-  try {
-    return new URL(url).hostname;
-  } catch {
-    return fallback;
-  }
-}
+const DemoCredentialsModal = lazy(() => import('@/components/DemoCredentialsModal'));
 
 export default function Projects({ copy }: ProjectsProps) {
   const { projects: pr } = copy;
   const [credentialsOpen, setCredentialsOpen] = useState(false);
 
   const menuSyncProject = pr.items.find((item) => item.demoCredentials && item.demoCredentials.length > 0);
+
+  const preloadCredentialsModal = () => {
+    void import('@/components/DemoCredentialsModal');
+  };
 
   return (
     <>
@@ -137,6 +127,8 @@ export default function Projects({ copy }: ProjectsProps) {
                         {hasDemoCredentials && (
                           <button
                             type="button"
+                            onMouseEnter={preloadCredentialsModal}
+                            onFocus={preloadCredentialsModal}
                             onClick={(event) => {
                               event.preventDefault();
                               event.stopPropagation();
@@ -158,16 +150,18 @@ export default function Projects({ copy }: ProjectsProps) {
         </div>
       </section>
 
-      {menuSyncProject?.demoCredentials && (
-        <DemoCredentialsModal
-          isOpen={credentialsOpen}
-          onClose={() => setCredentialsOpen(false)}
-          projectName={menuSyncProject.appName}
-          title={pr.demoCredentialsTitle}
-          closeLabel={pr.demoCredentialsClose}
-          columns={pr.demoCredentialsColumns}
-          rows={menuSyncProject.demoCredentials}
-        />
+      {menuSyncProject?.demoCredentials && credentialsOpen && (
+        <Suspense fallback={null}>
+          <DemoCredentialsModal
+            isOpen={credentialsOpen}
+            onClose={() => setCredentialsOpen(false)}
+            projectName={menuSyncProject.appName}
+            title={pr.demoCredentialsTitle}
+            closeLabel={pr.demoCredentialsClose}
+            columns={pr.demoCredentialsColumns}
+            rows={menuSyncProject.demoCredentials}
+          />
+        </Suspense>
       )}
     </>
   );

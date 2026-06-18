@@ -6,60 +6,21 @@ import Projects from '@/components/Projects';
 import Optimizations from '@/components/Optimizations';
 import About from '@/components/About';
 import Footer from '@/components/Footer';
+import { buildPageCopy } from '@/i18n/page-copy';
 import { useTranslations } from '@/i18n/utils';
 
 const lang = 'es';
 const t = useTranslations(lang);
+const page = buildPageCopy(t);
 ---
 
 <BaseLayout lang={lang}>
   <main id="main-content">
-    <Hero
-      client:visible
-      copy={{
-        ...t.hero,
-        skills: {
-          categories: t.skills.categories,
-          hardSkillsLabel: t.skills.hardSkillsLabel,
-        },
-        cv: t.cv,
-      }}
-      email={t.profile.email}
-    />
-    <Skills
-      client:visible
-      copy={{
-        skills: t.skills,
-        profile: {
-          email: t.profile.email,
-          linkedin: t.profile.linkedin,
-        },
-        experience: t.experience,
-        education: t.education,
-        certifications: t.certifications,
-        methodologies: t.methodologies,
-        metrics: t.metrics,
-      }}
-    />
-    <Projects
-      client:load
-      copy={{ projects: t.projects }}
-    />
-    <Optimizations client:idle copy={t.lighthouse} />
-    <About
-      client:visible
-      copy={{ about: t.about, profile: t.profile }}
-    />
+    <Hero client:visible copy={page.hero} email={page.email} />
+    <Skills client:visible copy={page.skills} />
+    <Projects client:visible copy={page.projects} />
+    <Optimizations client:idle copy={page.lighthouse} />
+    <About client:visible copy={page.about} />
   </main>
-  <Footer
-    client:idle
-    copy={{
-      footer: t.footer,
-      lighthouse: t.lighthouse,
-      profile: {
-        email: t.profile.email,
-        linkedin: t.profile.linkedin,
-      },
-    }}
-  />
+  <Footer client:idle copy={page.footer} />
 </BaseLayout>

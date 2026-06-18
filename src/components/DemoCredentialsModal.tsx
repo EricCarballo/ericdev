@@ -1,21 +1,7 @@
 import { useEffect, useId, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { KeyRound, X } from 'lucide-react';
-import type { UITranslations } from '@/i18n/ui';
-
-type DemoCredentialRow = NonNullable<
-  UITranslations['projects']['items'][number]['demoCredentials']
->[number];
-
-interface DemoCredentialsModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  projectName: string;
-  title: string;
-  closeLabel: string;
-  columns: UITranslations['projects']['demoCredentialsColumns'];
-  rows: DemoCredentialRow[];
-}
+import type { DemoCredentialsModalProps } from '@/interfaces/components/demo-credentials-modal';
 
 export default function DemoCredentialsModal({
   isOpen,

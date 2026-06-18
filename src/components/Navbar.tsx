@@ -1,16 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Download, Menu, Moon, Sun, Terminal, X, Mail } from 'lucide-react';
-import type { UITranslations } from '@/i18n/ui';
-
-export type NavCopy = UITranslations['nav'];
-
-interface NavbarProps {
-  lang: 'es' | 'en';
-  copy: NavCopy;
-  email: string;
-  cvUrl: string;
-  cvFileName: string;
-}
+import type { NavbarProps } from '@/interfaces/components/navbar';
 
 export default function Navbar({ lang, copy, email, cvUrl, cvFileName }: NavbarProps) {
   const [hidden, setHidden] = useState(false);

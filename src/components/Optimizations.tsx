@@ -1,15 +1,9 @@
-import { useEffect, useRef, useState } from 'react';
 import { CheckCircle2, RotateCcw, Search, Smartphone, Zap } from 'lucide-react';
-import type { LighthouseMetricItem, UITranslations } from '@/i18n/ui';
-
-export type OptimizationsCopy = UITranslations['lighthouse'];
-
-interface OptimizationsProps {
-  copy: OptimizationsCopy;
-}
-
-const CIRC = 283;
-const DUR = 1600;
+import type { LighthouseMetricItem } from '@/interfaces/i18n/ui-translations';
+import { lighthouseColor, LIGHTHOUSE_CIRCLE_LENGTH } from '@/lib/lighthouse';
+import { useIntersectionOnce } from '@/hooks/useIntersectionOnce';
+import { useLighthouseAnimation } from '@/hooks/useLighthouseAnimation';
+import type { OptimizationsProps } from '@/interfaces/components/optimizations';
 
 const ICON_MAP = {
   zap: Zap,
@@ -18,119 +12,13 @@ const ICON_MAP = {
   mobile: Smartphone,
 } as const;
 
-function lerpRgb(a: [number, number, number], b: [number, number, number], t: number): string {
-  return `rgb(${Math.round(a[0] + (b[0] - a[0]) * t)},${Math.round(a[1] + (b[1] - a[1]) * t)},${Math.round(a[2] + (b[2] - a[2]) * t)})`;
-}
-
-function lighthouseColor(val: number): string {
-  const red: [number, number, number] = [239, 68, 68];
-  const orange: [number, number, number] = [249, 115, 22];
-  const green: [number, number, number] = [34, 197, 94];
-  if (val < 50) return lerpRgb(red, orange, val / 50);
-  if (val < 90) return lerpRgb(orange, green, (val - 50) / 40);
-  return lerpRgb(orange, green, 1);
-}
-
 export default function Optimizations({ copy }: OptimizationsProps) {
-  const ref = useRef<HTMLElement>(null);
-
-  const [spinning, setSpinning] = useState(false);
-  const circleRefs = useRef<(SVGCircleElement | null)[]>([]);
-  const numRefs = useRef<(HTMLSpanElement | null)[]>([]);
-  const iconRefs = useRef<(HTMLSpanElement | null)[]>([]);
-  const animating = useRef(false);
-  const rafRef = useRef(0);
-  const timeoutRef = useRef(0);
-
-  const runAnimation = () => {
-    cancelAnimationFrame(rafRef.current);
-    circleRefs.current.forEach((el) => {
-      if (!el) return;
-      el.style.strokeDashoffset = String(CIRC);
-      el.style.stroke = lighthouseColor(0);
-    });
-    numRefs.current.forEach((el) => {
-      if (!el) return;
-      el.textContent = '0';
-      el.style.color = lighthouseColor(0);
-    });
-    iconRefs.current.forEach((el) => {
-      if (el) el.style.color = lighthouseColor(0);
-    });
-
-    const t0 = performance.now();
-    const tick = (now: number) => {
-      const elapsed = now - t0;
-      let running = false;
-
-      copy.metrics.forEach((metric, i) => {
-        const p = Math.min(elapsed / DUR, 1);
-        const ease = 1 - Math.pow(1 - p, 3);
-        const cur = Math.round(metric.value * ease);
-        const col = lighthouseColor(cur);
-
-        const circ = circleRefs.current[i];
-        if (circ) {
-          circ.style.strokeDashoffset = String(CIRC * (1 - cur / 100));
-          circ.style.stroke = col;
-        }
-        const num = numRefs.current[i];
-        if (num) {
-          num.textContent = String(cur);
-          num.style.color = col;
-        }
-        const icon = iconRefs.current[i];
-        if (icon) icon.style.color = col;
-
-        if (p < 1) running = true;
-      });
-
-      if (running) rafRef.current = requestAnimationFrame(tick);
-    };
-
-    rafRef.current = requestAnimationFrame(tick);
-  };
-
-  const replayAnimation = () => {
-    if (animating.current) return;
-    animating.current = true;
-    setSpinning(true);
-    window.clearTimeout(timeoutRef.current);
-    timeoutRef.current = window.setTimeout(() => {
-      runAnimation();
-      timeoutRef.current = window.setTimeout(() => {
-        setSpinning(false);
-        animating.current = false;
-      }, DUR + 300);
-    }, 350);
-  };
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry?.isIntersecting) {
-          runAnimation();
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.25 }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
-
-  useEffect(
-    () => () => {
-      cancelAnimationFrame(rafRef.current);
-      window.clearTimeout(timeoutRef.current);
-    },
-    []
-  );
+  const { spinning, runAnimation, replayAnimation, circleRefs, numRefs, iconRefs } =
+    useLighthouseAnimation(copy.metrics);
+  const sectionRef = useIntersectionOnce(runAnimation);
 
   return (
-    <section ref={ref} id="optimizations" className="section-pad relative overflow-hidden">
+    <section ref={sectionRef} id="optimizations" className="section-pad relative overflow-hidden">
       <div className="pointer-events-none absolute left-1/2 top-1/2 flex h-[600px] w-full max-w-5xl -translate-x-1/2 -translate-y-1/2 justify-center opacity-20">
         <div className="absolute h-[300px] w-[600px] bg-gradient-to-r from-green-500/15 via-emerald-500/15 to-teal-500/15" />
       </div>
@@ -176,7 +64,7 @@ export default function Optimizations({ copy }: OptimizationsProps) {
               </div>
 
               <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
-                {copy.metrics.map((metric: LighthouseMetricItem, i) => {
+                {copy.metrics.map((metric: LighthouseMetricItem, index) => {
                   const Icon = ICON_MAP[metric.icon];
                   return (
                     <div key={metric.label} className="flex flex-col items-center gap-2">
@@ -192,22 +80,22 @@ export default function Optimizations({ copy }: OptimizationsProps) {
                           />
                           <circle
                             ref={(el) => {
-                              circleRefs.current[i] = el;
+                              circleRefs.current[index] = el;
                             }}
                             cx="50"
                             cy="50"
                             r="45"
                             fill="none"
                             strokeWidth="8"
-                            strokeDasharray={CIRC}
-                            strokeDashoffset={CIRC}
+                            strokeDasharray={LIGHTHOUSE_CIRCLE_LENGTH}
+                            strokeDashoffset={LIGHTHOUSE_CIRCLE_LENGTH}
                             strokeLinecap="round"
                             style={{ stroke: lighthouseColor(0) }}
                           />
                         </svg>
                         <span
                           ref={(el) => {
-                            numRefs.current[i] = el;
+                            numRefs.current[index] = el;
                           }}
                           className="text-base font-bold"
                           style={{ color: lighthouseColor(0) }}
@@ -218,7 +106,7 @@ export default function Optimizations({ copy }: OptimizationsProps) {
                       <div className="text-center">
                         <span
                           ref={(el) => {
-                            iconRefs.current[i] = el;
+                            iconRefs.current[index] = el;
                           }}
                           className="block"
                           style={{ color: lighthouseColor(0) }}

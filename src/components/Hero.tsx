@@ -1,17 +1,7 @@
 import { useEffect, useState } from 'react';
 import { ArrowRight, Download } from 'lucide-react';
 import SkillsCarousel from '@/components/SkillsCarousel';
-import type { UITranslations } from '@/i18n/ui';
-
-export type HeroCopy = UITranslations['hero'] & {
-  skills: Pick<UITranslations['skills'], 'categories' | 'hardSkillsLabel'>;
-  cv: UITranslations['cv'];
-};
-
-interface HeroProps {
-  copy: HeroCopy;
-  email: string;
-}
+import type { HeroProps } from '@/interfaces/components/hero';
 
 export default function Hero({ copy, email }: HeroProps) {
   const [roleIndex, setRoleIndex] = useState(0);
